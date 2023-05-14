@@ -42,7 +42,7 @@ var api = new ClientCrud<Pais>(baseUrl);
 //    Console.WriteLine($"{pais.Nombre} - {pais.Capital}");
 //}
 var ec = await api.SelectById("/Pais", "1");
-//Console.WriteLine($"{ec?.Nombre} {ec?.Poblacion} {ec?.Capital}");
+Console.WriteLine($"{ec?.Nombre} {ec?.Poblacion} {ec?.Capital}");
 
 //ec!.Nombre = "Ecuador";
 //ec!.Capital = "Distrito Metropolitano de Quito";
