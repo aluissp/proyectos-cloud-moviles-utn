@@ -367,3 +367,6 @@ empresautn.db
 *.sqlite
 *.db
 *.sqlite3
+
+empresautn.db-shm
+empresautn.db-wal
