@@ -1,0 +1,72 @@
+﻿@model IEnumerable<EmpresaUTN.Modelos.Pais>
+
+@{
+    ViewData["Title"] = "Listado de paises";
+}
+
+<h1>Listado de paises</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoPais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poblacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoISO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Moneda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capital)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idioma)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoPais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Poblacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoISO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Moneda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capital)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Idioma)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.CodigoPais  }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.CodigoPais  }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.CodigoPais  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
