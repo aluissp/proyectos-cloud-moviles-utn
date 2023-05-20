@@ -43,6 +43,8 @@ namespace EmpresaUTN.API.Controllers
             if (_context.Paises == null) return NotFound();
 
             var pais = await _context.Paises
+                .Include(p => p.Provincias)
+                .ThenInclude(pr => pr.Cantones)
                 .FirstOrDefaultAsync(p => p.CodigoPais == id);
 
             if (pais == null) return NotFound();
@@ -96,15 +98,12 @@ namespace EmpresaUTN.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePais(int id)
         {
-            if (_context.Paises == null)
-            {
-                return NotFound();
-            }
+            if (_context.Paises == null) return NotFound();
+
             var pais = await _context.Paises.FindAsync(id);
-            if (pais == null)
-            {
-                return NotFound();
-            }
+
+            if (pais == null) return NotFound();
+
 
             _context.Paises.Remove(pais);
             await _context.SaveChangesAsync();

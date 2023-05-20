@@ -28,27 +28,24 @@ namespace EmpresaUTN.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Canton>>> GetCantones()
         {
-            if (_context.Cantones == null)
-            {
-                return NotFound();
-            }
-            return await _context.Cantones.ToListAsync();
+            if (_context.Cantones == null) return NotFound();
+
+            return await _context.Cantones
+                .Include(c => c.Provincia)
+                .ToListAsync();
         }
 
         // GET: api/Cantons/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Canton>> GetCanton(int id)
         {
-            if (_context.Cantones == null)
-            {
-                return NotFound();
-            }
-            var canton = await _context.Cantones.FindAsync(id);
+            if (_context.Cantones == null) return NotFound();
 
-            if (canton == null)
-            {
-                return NotFound();
-            }
+            var canton = await _context.Cantones
+                .Include(c => c.Provincia)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (canton == null) return NotFound();
 
             return canton;
         }
@@ -58,10 +55,7 @@ namespace EmpresaUTN.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCanton(int id, Canton canton)
         {
-            if (id != canton.Id)
-            {
-                return BadRequest();
-            }
+            if (id != canton.Id) return BadRequest();
 
             _context.Entry(canton).State = EntityState.Modified;
 
@@ -104,15 +98,11 @@ namespace EmpresaUTN.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCanton(int id)
         {
-            if (_context.Cantones == null)
-            {
-                return NotFound();
-            }
+            if (_context.Cantones == null) return NotFound();
+
             var canton = await _context.Cantones.FindAsync(id);
-            if (canton == null)
-            {
-                return NotFound();
-            }
+
+            if (canton == null) return NotFound();
 
             _context.Cantones.Remove(canton);
             await _context.SaveChangesAsync();

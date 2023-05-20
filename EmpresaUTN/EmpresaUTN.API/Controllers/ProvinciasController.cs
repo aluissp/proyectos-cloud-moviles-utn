@@ -28,27 +28,26 @@ namespace EmpresaUTN.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Provincia>>> GetProvincias()
         {
-            if (_context.Provincias == null)
-            {
-                return NotFound();
-            }
-            return await _context.Provincias.ToListAsync();
+            if (_context.Provincias == null) return NotFound();
+
+            return await _context.Provincias
+                .Include(p => p.Pais)
+                .Include(p => p.Cantones)
+                .ToListAsync();
         }
 
         // GET: api/Provincias/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Provincia>> GetProvincia(int id)
         {
-            if (_context.Provincias == null)
-            {
-                return NotFound();
-            }
-            var provincia = await _context.Provincias.FindAsync(id);
+            if (_context.Provincias == null) return NotFound();
 
-            if (provincia == null)
-            {
-                return NotFound();
-            }
+            var provincia = await _context.Provincias
+                .Include(p => p.Pais)
+                .Include(p => p.Cantones)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (provincia == null) return NotFound();
 
             return provincia;
         }
@@ -58,10 +57,8 @@ namespace EmpresaUTN.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProvincia(int id, Provincia provincia)
         {
-            if (id != provincia.Id)
-            {
-                return BadRequest();
-            }
+            if (id != provincia.Id) return BadRequest();
+
 
             _context.Entry(provincia).State = EntityState.Modified;
 
@@ -104,15 +101,12 @@ namespace EmpresaUTN.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProvincia(int id)
         {
-            if (_context.Provincias == null)
-            {
-                return NotFound();
-            }
+            if (_context.Provincias == null) return NotFound();
+
             var provincia = await _context.Provincias.FindAsync(id);
-            if (provincia == null)
-            {
-                return NotFound();
-            }
+
+            if (provincia == null) return NotFound();
+
 
             _context.Provincias.Remove(provincia);
             await _context.SaveChangesAsync();
