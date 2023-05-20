@@ -75,7 +75,7 @@ namespace EmpresaUTN.WebMVC.Controllers
         // GET: PaisesController/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var pais = await paisesApi.Delete("/Pais", id.ToString());
+            var pais = await paisesApi.SelectById("/Pais", id.ToString());
 
             return View(pais);
         }
