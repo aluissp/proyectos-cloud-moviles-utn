@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BlogPeliculas.Modelos;
+using AutoMapper;
+using BlogPeliculas.API.DTOs;
 
 namespace BlogPeliculas.API.Controllers
 {
@@ -9,37 +11,36 @@ namespace BlogPeliculas.API.Controllers
     public class PersonajesController : ControllerBase
     {
         private readonly BlogPeliculasContext _context;
+        private readonly IMapper mapper;
 
-        public PersonajesController(BlogPeliculasContext context)
+        public PersonajesController(BlogPeliculasContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: api/Personajes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Personaje>>> GetPersonaje()
         {
-          if (_context.Personajes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Personajes.ToListAsync();
+            if (_context.Personajes == null) return NotFound();
+
+            return await _context.Personajes
+                .Include(p => p.Pelicula)
+                .ToListAsync();
         }
 
         // GET: api/Personajes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Personaje>> GetPersonaje(int id)
         {
-          if (_context.Personajes == null)
-          {
-              return NotFound();
-          }
-            var personaje = await _context.Personajes.FindAsync(id);
+            if (_context.Personajes == null) return NotFound();
 
-            if (personaje == null)
-            {
-                return NotFound();
-            }
+            var personaje = await _context.Personajes
+                .Include(p => p.Pelicula)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (personaje == null) return NotFound();
 
             return personaje;
         }
@@ -47,12 +48,11 @@ namespace BlogPeliculas.API.Controllers
         // PUT: api/Personajes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPersonaje(int id, Personaje personaje)
+        public async Task<IActionResult> PutPersonaje(int id, PersonajeActualizarDTO personajeActualizar)
         {
-            if (id != personaje.Id)
-            {
-                return BadRequest();
-            }
+            var personaje = mapper.Map<Personaje>(personajeActualizar);
+
+            if (id != personaje.Id) return BadRequest();
 
             _context.Entry(personaje).State = EntityState.Modified;
 
@@ -78,12 +78,12 @@ namespace BlogPeliculas.API.Controllers
         // POST: api/Personajes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Personaje>> PostPersonaje(Personaje personaje)
+        public async Task<ActionResult<Personaje>> PostPersonaje(PersonajeCreacionDTO personajeCreacion)
         {
-          if (_context.Personajes == null)
-          {
-              return Problem("Entity set 'BlogPeliculasContext.Personaje'  is null.");
-          }
+            var personaje = mapper.Map<Personaje>(personajeCreacion);
+
+            if (_context.Personajes == null) return Problem("Entity set 'BlogPeliculasContext.Personaje'  is null.");
+
             _context.Personajes.Add(personaje);
             await _context.SaveChangesAsync();
 
@@ -94,15 +94,11 @@ namespace BlogPeliculas.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePersonaje(int id)
         {
-            if (_context.Personajes == null)
-            {
-                return NotFound();
-            }
+            if (_context.Personajes == null) return NotFound();
+
             var personaje = await _context.Personajes.FindAsync(id);
-            if (personaje == null)
-            {
-                return NotFound();
-            }
+
+            if (personaje == null) return NotFound();
 
             _context.Personajes.Remove(personaje);
             await _context.SaveChangesAsync();
