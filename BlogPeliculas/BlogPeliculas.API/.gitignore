@@ -363,10 +363,10 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore sqlite db
-empresautn.db
+blogpeliculas.db
 *.sqlite
 *.db
 *.sqlite3
 
-empresautn.db-shm
-empresautn.db-wal
+blogpeliculas.db-shm
+blogpeliculas.db-wal
