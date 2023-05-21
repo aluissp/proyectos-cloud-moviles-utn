@@ -16,9 +16,9 @@ namespace BlogPeliculas.WebMVC.Controllers
         }
 
         // GET: PeliculasController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var pelicula = peliculaApi.SelectById("/Peliculas", id.ToString());
+            var pelicula = await peliculaApi.SelectById("/Peliculas", id.ToString());
             return View(pelicula);
         }
 
@@ -68,9 +68,9 @@ namespace BlogPeliculas.WebMVC.Controllers
         }
 
         // GET: PeliculasController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var pelicula = peliculaApi.SelectById("/Peliculas", id.ToString());
+            var pelicula = await peliculaApi.SelectById("/Peliculas", id.ToString());
             return View(pelicula);
         }
 
