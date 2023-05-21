@@ -7,5 +7,7 @@ namespace EmpresaUTN.API.DTOs
         public string Nombre { get; set; } = null!;
         public int Area { get; set; }
         public string ActividadEconomica { get; set; } = null!;
+
+        public int PaisCodigoPais { get; set; }
     }
 }

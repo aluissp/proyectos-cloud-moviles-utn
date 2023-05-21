@@ -55,9 +55,10 @@ namespace EmpresaUTN.API.Controllers
         // PUT: api/Provincias/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProvincia(int id, Provincia provincia)
+        public async Task<IActionResult> PutProvincia(int id, UpdateProvinciaDTO updateProvincia)
         {
-            if (id != provincia.Id) return BadRequest();
+            var provincia = mapper.Map<Provincia>(updateProvincia);
+            if (id != provincia?.Id) return BadRequest();
 
 
             _context.Entry(provincia).State = EntityState.Modified;

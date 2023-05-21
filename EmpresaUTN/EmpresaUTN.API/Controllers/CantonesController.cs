@@ -53,9 +53,11 @@ namespace EmpresaUTN.API.Controllers
         // PUT: api/Cantons/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCanton(int id, Canton canton)
+        public async Task<IActionResult> PutCanton(int id, UpdateCantonDTO updateCanton)
         {
-            if (id != canton.Id) return BadRequest();
+            var canton = mapper.Map<Canton>(updateCanton);
+
+            if (id != canton?.Id) return BadRequest();
 
             _context.Entry(canton).State = EntityState.Modified;
 

@@ -4,5 +4,7 @@
     {
         public string Nombre { get; set; } = null!;
         public string CabeceraCantonal { get; set; } = null!;
+
+        public int ProvinciaId { get; set; }
     }
 }

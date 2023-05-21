@@ -11,6 +11,9 @@ namespace EmpresaUTN.API.Utilities
             CreateMap<CreatePaisDTO, Pais>();
             CreateMap<CreateProvinciaDTO, Provincia>();
             CreateMap<CreateCantonDTO, Canton>();
+
+            CreateMap<UpdateProvinciaDTO, Provincia>();
+            CreateMap<UpdateCantonDTO, Canton>();
         }
     }
 }
