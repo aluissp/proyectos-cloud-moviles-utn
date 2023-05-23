@@ -1,42 +1,72 @@
 ﻿@model BlogPeliculas.Modelos.Pelicula
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Pelicula</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EnCines)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EnCines)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaEstreno)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FechaEstreno)
-        </dd>
-    </dl>
+
+    <div class="d-flex flex-column gap-3">
+
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EnCines)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EnCines)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaEstreno)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaEstreno)
+            </dd>
+        </dl>
+
+        <div>
+            <h3>Personajes</h3>
+            <ol>
+                @foreach (var personaje in ViewBag.personajes)
+                {
+                    <li>@personaje.Nombre</li>
+                }
+            </ol>
+        </div>
+
+        <div>
+            <h3>Comentarios</h3>
+
+            @foreach (var comentario in ViewBag.comentarios)
+            {
+                <div class="mb-3">
+
+                    <p class="m-0">@comentario?.Contenido</p>
+
+                    <div class="d-flex gap-2">
+                        Recomendado: <input type="checkbox" disabled checked="@comentario?.Recomendar" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a la lista de peliculas</a>
 </div>

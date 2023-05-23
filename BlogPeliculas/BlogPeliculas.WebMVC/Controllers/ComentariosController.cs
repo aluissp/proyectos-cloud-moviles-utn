@@ -7,8 +7,15 @@ namespace BlogPeliculas.WebMVC.Controllers
 {
     public class ComentariosController : Controller
     {
-        private readonly ClientCrud<Comentario> comentarioApi = new("https://localhost:7093/api");
-        private readonly ClientCrud<Pelicula> peliculaApi = new("https://localhost:7093/api");
+        private readonly ClientCrud<Comentario> comentarioApi;
+        private readonly ClientCrud<Pelicula> peliculaApi;
+
+        public ComentariosController(IConfiguration configuration)
+        {
+            var apiUrl = configuration.GetValue<string>("ApiUrl");
+            comentarioApi = new(apiUrl!);
+            peliculaApi = new(apiUrl!);
+        }
 
         // GET: ComentariosController
         public async Task<ActionResult> Index()

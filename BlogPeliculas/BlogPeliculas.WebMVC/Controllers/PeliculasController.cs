@@ -6,7 +6,17 @@ namespace BlogPeliculas.WebMVC.Controllers
 {
     public class PeliculasController : Controller
     {
-        private readonly ClientCrud<Pelicula> peliculaApi = new("https://localhost:7093/api");
+        private readonly ClientCrud<Pelicula> peliculaApi;
+        private readonly ClientCrud<Personaje> personajeApi;
+        private readonly ClientCrud<Comentario> comentarioApi;
+
+        public PeliculasController(IConfiguration configuration)
+        {
+            var apiUrl = configuration.GetValue<string>("ApiUrl");
+            peliculaApi = new(apiUrl!);
+            personajeApi = new(apiUrl!);
+            comentarioApi = new(apiUrl!);
+        }
 
         // GET: PeliculasController
         public async Task<ActionResult> Index()
@@ -19,6 +29,17 @@ namespace BlogPeliculas.WebMVC.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var pelicula = await peliculaApi.SelectById("/Peliculas", id.ToString());
+            var personajes = (await personajeApi.Select("/Personajes"))
+                    ?.Where(p => p.PeliculaId == id)
+                    .ToList();
+
+            var comentarios = (await comentarioApi.Select("/Comentarios"))
+                    ?.Where(c => c.PeliculaId == id)
+                    .ToList();
+
+            ViewBag.Personajes = personajes;
+            ViewBag.Comentarios = comentarios;
+
             return View(pelicula);
         }
 
