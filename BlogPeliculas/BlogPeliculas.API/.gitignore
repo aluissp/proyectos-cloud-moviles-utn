@@ -370,3 +370,6 @@ blogpeliculas.db
 
 blogpeliculas.db-shm
 blogpeliculas.db-wal
+
+# Ignore ServiceDependencies folder
+Properties/ServiceDependencies/

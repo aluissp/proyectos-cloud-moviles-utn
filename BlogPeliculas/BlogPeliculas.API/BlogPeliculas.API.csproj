@@ -25,4 +25,10 @@
     <ProjectReference Include="..\BlogPeliculas.Modelos\BlogPeliculas.Modelos.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="blogpeliculas.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
