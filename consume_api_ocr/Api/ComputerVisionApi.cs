@@ -61,5 +61,51 @@ namespace consume_api_ocr.Api
                 throw new Exception($"Ha sucedido un error inesperado ({e.Message})");
             }
         }
+
+        public async Task<K?> DescribeImageLocal(string filePath)
+        {
+            try
+            {
+                // File
+                await using var stream = File.OpenRead(filePath);
+                using var request = new HttpRequestMessage(HttpMethod.Post, "file");
+                using var content = new MultipartFormDataContent
+                {
+                    { new StreamContent(stream), "file", "Request.jpg" }
+                };
+
+                request.Content = content;
+
+                using HttpResponseMessage res = await client
+                    .PostAsync($"{apiUrl}/describe{parameters}", content);
+
+                if (res.StatusCode != HttpStatusCode.OK)
+                    throw new Exception("No se ha podido procesar la solicitud");
+
+                return await res.Content.ReadFromJsonAsync<K>();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Ha sucedido un error inesperado ({e.Message})");
+            }
+        }
+
+        public async Task<K?> DescribeImageUrl(string imageUrl)
+        {
+            try
+            {
+                using HttpResponseMessage res = await client
+                    .PostAsJsonAsync($"{apiUrl}/describe{parameters}", new { url = imageUrl });
+
+                if (res.StatusCode != HttpStatusCode.OK)
+                    throw new Exception("No se ha podido procesar la solicitud");
+
+                return await res.Content.ReadFromJsonAsync<K>();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Ha sucedido un error inesperado ({e.Message})");
+            }
+        }
     }
 }

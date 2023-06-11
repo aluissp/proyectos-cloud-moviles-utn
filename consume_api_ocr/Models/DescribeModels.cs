@@ -2,10 +2,10 @@
 {
     public class DescribeImageResponse : ComputerVisionInterface
     {
-        private Description description { get; set; }
-        private string requestId { get; set; }
-        private Metadata metadata { get; set; }
-        private DateTime modelVersion { get; set; }
+        public Description description { get; set; }
+        public string requestId { get; set; }
+        public Metadata metadata { get; set; }
+        public DateTime modelVersion { get; set; }
 
         public string ReadText()
         {
@@ -13,19 +13,19 @@
         }
     }
 
-    internal class Description
+    public class Description
     {
         public List<string> tags { get; set; }
         public List<Caption> captions { get; set; }
     }
 
-    internal class Caption
+    public class Caption
     {
         public string text { get; set; }
         public double confidence { get; set; }
     }
 
-    internal class Metadata
+    public class Metadata
     {
         public int height { get; set; }
         public int width { get; set; }
