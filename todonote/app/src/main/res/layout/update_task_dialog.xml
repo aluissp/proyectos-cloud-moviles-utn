@@ -47,14 +47,14 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edTaskTitleL"
+                android:id="@+id/upTaskTitleL"
                 style="@style/Widget.App.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter the task title">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edTaskTitle"
+                    android:id="@+id/upTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:background="#EAE4E8"
@@ -62,14 +62,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edTaskDescrL"
+                android:id="@+id/upTaskDescrL"
                 style="@style/Widget.App.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter the task description">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edTaskDescr"
+                    android:id="@+id/upTaskDescr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#EAE4E8"
