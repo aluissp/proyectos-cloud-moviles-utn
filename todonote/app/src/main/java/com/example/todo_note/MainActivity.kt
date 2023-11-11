@@ -8,11 +8,19 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.todo_note.databinding.ActivityMainBinding
+import com.example.todo_note.models.Task
+import com.example.todo_note.utils.Status
+import com.example.todo_note.utils.clearEditText
+import com.example.todo_note.utils.longToastShow
 import com.example.todo_note.utils.setupDialog
 import com.example.todo_note.utils.validateEditText
+import com.example.todo_note.view.TaskViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.util.Date
+import java.util.UUID
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +44,10 @@ class MainActivity : AppCompatActivity() {
         Dialog(this).apply {
             setupDialog(R.layout.loading_dialog)
         }
+    }
+
+    private val taskViewModel: TaskViewModel by lazy {
+        ViewModelProvider(this)[TaskViewModel::class.java]
     }
 
 
@@ -71,6 +83,8 @@ class MainActivity : AppCompatActivity() {
         })
 
         mainBinding.addTaskFloatBtn.setOnClickListener {
+            clearEditText(addTaskTitle, addTaskTitleL)
+            clearEditText(addTaskDescr, addTaskDescrL)
             addTaskDialog.show()
         }
 
@@ -80,8 +94,33 @@ class MainActivity : AppCompatActivity() {
                 && validateEditText(addTaskDescr, addTaskDescrL)
             ) {
                 addTaskDialog.dismiss()
-                Toast.makeText(this, "Validated!", Toast.LENGTH_LONG).show()
-                loadingDialog.show()
+                val newTask = Task(
+                    UUID.randomUUID().toString(),
+                    addTaskTitle.text.toString().trim(),
+                    addTaskDescr.text.toString().trim(),
+                    Date()
+                )
+
+                taskViewModel.insertTask(newTask).observe(this) {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+                            if (it.data?.toInt() != -1) {
+                                longToastShow("Task added successfully!")
+                            }
+                        }
+
+                        Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            it.message?.let { msg -> longToastShow(msg) }
+                        }
+
+                    }
+                }
             }
 
         }
@@ -123,7 +162,7 @@ class MainActivity : AppCompatActivity() {
                 loadingDialog.show()
             }
         }
-        // Update task en
+        // Update task end
 
 
     }
