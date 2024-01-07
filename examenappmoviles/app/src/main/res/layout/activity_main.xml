@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+<!--    TITULO -->
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Película"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="22dp"
+        />
+
+    <!--    TITULO -->
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="10dp"
+        android:text="Género"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="22dp"
+        />
+
+<!--    ID INPUT-->
+    <TextView
+        android:id="@+id/label3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:text="ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/txtId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:layout_marginStart="10dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    GENERO ID INPUT-->
+    <TextView
+        android:id="@+id/label4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="50dp"
+        android:text="ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/txtGeneroId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:layout_marginStart="200dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    TITULO INPUT-->
+    <TextView
+        android:id="@+id/label5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Título"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label3" />
+
+    <EditText
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:layout_marginStart="10dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label5"
+        app:layout_constraintTop_toTopOf="@id/txtId" />
+
+<!--    NOMBRE GENERO-->
+    <TextView
+        android:id="@+id/label6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="25dp"
+        android:text="Nombre"
+        app:layout_constraintStart_toStartOf="@id/txtTitulo"
+        app:layout_constraintTop_toBottomOf="@id/label4" />
+
+
+    <EditText
+        android:id="@+id/txtNombreGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:layout_marginStart="10dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label6"
+        app:layout_constraintTop_toBottomOf="@id/txtGeneroId" />
+
+
+    <!--    DIRECTOR INPUT-->
+    <TextView
+        android:id="@+id/label7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Director"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label5" />
+
+    <EditText
+        android:id="@+id/txtDirector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:layout_marginStart="10dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label7"
+        app:layout_constraintTop_toTopOf="@id/txtTitulo" />
+
+    <!--    POPULARIDAD GENERO-->
+    <TextView
+        android:id="@+id/label8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="25dp"
+        android:text="Popularidad"
+        app:layout_constraintStart_toStartOf="@id/txtDirector"
+        app:layout_constraintTop_toBottomOf="@id/label6" />
+
+
+    <EditText
+        android:id="@+id/txtPopularidadGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:layout_marginStart="10dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label8"
+        app:layout_constraintTop_toBottomOf="@id/txtNombreGenero" />
+
+    <!--    ANIO INPUT-->
+    <TextView
+        android:id="@+id/label9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Año"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label7" />
+
+    <EditText
+        android:id="@+id/txtAnio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:layout_marginStart="10dp"
+        android:width="100dp"
+        android:height="10dp"
+        android:padding="0dp"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/label9"
+        app:layout_constraintTop_toTopOf="@id/label7" />
+
+
+<!--    INFO-->
+    <TextView
+        android:id="@+id/showInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:width="350dp"
+        android:height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label9" />
+
+<!--    BOTONES CREAR-->
+        <Button
+        android:id="@+id/btnCrear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="handleCrear"
+        android:text="Crear pélicula"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showInfo" />
+
+    <Button
+        android:id="@+id/btnCrearGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:onClick="handleCrearGenero"
+        android:text="Crear género"
+        app:layout_constraintStart_toEndOf="@id/btnCrear"
+        app:layout_constraintTop_toBottomOf="@+id/showInfo" />
+
+    <!--    BOTONES ACTUALIZAR-->
+    <Button
+        android:id="@+id/btnActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleActualizar"
+        android:text="Actualizar pélicula"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCrear" />
+
+    <Button
+        android:id="@+id/btnActualizarGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleActualizarGenero"
+        android:text="Actualizar género"
+        app:layout_constraintStart_toEndOf="@id/btnActualizar"
+        app:layout_constraintTop_toBottomOf="@+id/btnCrearGenero" />
+
+    <!--    BOTONES MOSTRAR-->
+    <Button
+        android:id="@+id/btnListar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleLeerTodo"
+        android:text="Listar péliculas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnActualizar" />
+
+    <Button
+        android:id="@+id/btnListarGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleLeerTodoGeneros"
+        android:text="Listar géneros"
+        app:layout_constraintStart_toEndOf="@id/btnListar"
+        app:layout_constraintTop_toBottomOf="@+id/btnActualizarGenero" />
+
+    <!--    BOTONES BUSCAR-->
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleLeerId"
+        android:text="Buscar por id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnListar" />
+
+    <Button
+        android:id="@+id/btnBuscarGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleLeerIdGenero"
+        android:text="Buscar por id"
+        app:layout_constraintStart_toEndOf="@id/btnBuscar"
+        app:layout_constraintTop_toBottomOf="@+id/btnListarGenero" />
+
+
+    <!--    BOTONES ELIMINAR-->
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleEliminar"
+        android:text="Eliminar película"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscar" />
+
+    <Button
+        android:id="@+id/btnEliminarGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:onClick="handleEliminarGenero"
+        android:text="Eliminar género"
+        app:layout_constraintStart_toEndOf="@id/btnEliminar"
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscarGenero" />
+
+
+
+        <Button
+        android:id="@+id/btnLimpiar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="handleLimpiarTodo"
+        android:text="Limpiar Todo"
+        app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
