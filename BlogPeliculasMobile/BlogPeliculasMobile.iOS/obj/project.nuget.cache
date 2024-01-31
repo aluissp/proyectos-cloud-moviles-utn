@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "l1gaUsz3ny8Y+25HReo/g4V/FfyIKMJpHM3QB2u+gT/1kzM0niqiJn3d5wkW0vHP/VikmVCSk+IcNaO0QNxaog==",
+  "success": true,
+  "projectFilePath": "E:\\android-projects\\BlogPeliculasMobile\\BlogPeliculasMobile.iOS\\BlogPeliculasMobile.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\arman\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\arman\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\arman\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
+    "C:\\Users\\arman\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlogPeliculasMobile.ManageMovies">
+    <ContentPage.Content>
+
+
+        <StackLayout>
+            <Label Text="Películas" FontSize="Title" Padding="30,10,30,10"/>
+
+            <Entry x:Name="txtId" Placeholder="ID" ></Entry>
+            <Entry x:Name="txtTitulo" Placeholder="Título" ></Entry>
+
+            <Label Text="Esta en cines?"/>
+            <CheckBox x:Name="checkBox" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Color"
+                            Value="Red" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="IsChecked">
+                            <VisualState.Setters>
+                                <Setter Property="Color"
+                            Value="Green" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </CheckBox>
+
+            <DatePicker x:Name="txtDate" MinimumDate="01/01/2000" />
+            
+
+            <Button Text="Insertar"  Clicked="handleAddMovie" ></Button>
+            <Button Text="Modificar" Clicked="handleUpdateMovie"></Button>
+            <Button Text="Leer" Clicked="handleReadMovie"></Button>
+            <Button Text="Eliminar" Clicked="handleDeleteMovie"></Button>
+
+            <Button x:Name="cmdRegesar" Text="REGRESAR" Clicked="handleReturn"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
