@@ -1,0 +1,217 @@
+﻿Build1=Default,b4a.example
+File1=Layout.bal
+FileGroup1=Default Group
+Group=Default Group
+Library1=core
+Library2=json
+Library3=okhttp
+Library4=okhttputils2
+Library5=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="33"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=1
+NumberOfLibraries=5
+NumberOfModules=1
+Version=12.8
+@EndOfDesignText@
+
+#Region  Project Attributes 
+	#ApplicationLabel: B4A Example
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: false
+#End Region
+
+
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+
+
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private txtId As EditText
+	Private txtTitulo As EditText
+	Private txtFechaEstreno As EditText
+	Private txtEnCines As CheckBox
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+End Sub
+
+
+
+Sub cmdRead_Click
+	Dim peliculaId As Int
+	Try
+		peliculaId = txtId.Text
+	Catch
+		MsgboxAsync("El ID de la película debe ser numérico.", "Error")
+		Return
+	End Try
+
+	Dim peticion As HttpJob
+	peticion.Initialize("", Me)
+	peticion.Download("https://sqliteazurepelicula.azurewebsites.net/api/Peliculas/" & peliculaId)
+	Wait For (peticion) JobDone(respuesta As HttpJob)
+
+	If respuesta.Success Then
+		Dim json As String
+		json = respuesta.GetString
+
+		Dim jsonParser As JSONParser
+		jsonParser.Initialize(json)
+		
+		Dim map As Map = jsonParser.NextObject
+
+
+		txtId.Text= map.Get("id")
+		txtTitulo.Text = map.Get("titulo")
+		txtEnCines.Checked = map.Get("enCines")
+		txtFechaEstreno.Text = map.Get("fechaEstreno")
+
+	Else
+		MsgboxAsync("No se pudo obtener la información de la película. " & respuesta.ErrorMessage, "Error")
+	End If
+
+	peticion.Release
+End Sub
+
+
+
+Sub cmdUpdate_Click
+	' Validar que se haya ingresado un ID
+	If txtId.Text.Trim = "" Then
+		MsgboxAsync("El ID de la película es necesario para actualizar.", "Error")
+		Return
+	End If
+    
+	' Crear un mapa con todos los campos que se van a actualizar
+	Dim map As Map
+	Dim json As String
+	Dim jsonGenerator As JSONGenerator
+	Dim peticion As HttpJob
+	peticion.Initialize("jobUpdate", Me)
+    
+	map.Initialize
+	map.Put("id", txtId.Text)
+	map.Put("titulo", txtTitulo.Text)
+	map.Put("enCines", txtEnCines.Checked)
+	map.Put("fechaEstreno", txtFechaEstreno.Text)
+	
+	Dim id As Int = txtId.Text
+    
+	' Convertir el mapa a JSON
+	jsonGenerator.Initialize(map)
+	json = jsonGenerator.ToString
+    
+	' Enviar la solicitud PUT a la API
+	peticion.PutString("https://sqliteazurepelicula.azurewebsites.net/api/Peliculas/" & id,json)
+	peticion.GetRequest.SetContentType("application/json")
+    
+	' Esperar por la respuesta de la solicitud
+	Wait For (peticion) JobDone(respuesta As HttpJob)
+	If respuesta.Success Then
+		MsgboxAsync("Película actualizada correctamente!", "Éxito")
+	Else
+		MsgboxAsync("No se pudo actualizar la pelicula. " & respuesta.ErrorMessage, "Error")
+	End If
+	peticion.Release
+End Sub
+
+Sub cmdDelete_Click
+	' Validar que el campo de texto del ID de la computadora no esté vacío
+	If txtId.Text.Trim = "" Then
+		MsgboxAsync("Debes ingresar el ID de la película para eliminarla.", "Error")
+		Return
+	End If
+
+	Dim id As Int = txtId.Text
+	Dim peticion As HttpJob
+	peticion.Initialize("jobDelete", Me)
+    
+	' Configurar y enviar la solicitud DELETE a la API
+	peticion.Delete("https://sqliteazurepelicula.azurewebsites.net/api/Peliculas/" & id)
+    
+	' Esperar la respuesta de la solicitud
+	Wait For (peticion) JobDone(respuesta As HttpJob)
+	If respuesta.Success Then
+		MsgboxAsync("Película borrada correctamente!", "Éxito")
+	Else
+		MsgboxAsync("No se pudo borrar la película. " & respuesta.ErrorMessage, "Error")
+	End If
+    
+	peticion.Release
+End Sub
+
+
+
+Sub cmdInsertar_Click
+	Dim map As Map
+	Dim json As String
+	Dim jsonGenerator As JSONGenerator
+
+	' Asegúrate de tener EditText para cada campo relevante en tu layout
+	Dim titulo As String = txtTitulo.Text
+	Dim fechaEstreno As String = txtFechaEstreno.Text
+	Dim enCines As Boolean = txtEnCines.Checked
+	
+	' Inicializa el mapa con los datos de la nueva computadora
+	map.Initialize
+	map.Put("titulo", titulo)
+	map.Put("enCines", enCines)
+	map.Put("fechaEstreno", fechaEstreno)
+    
+	' Inicializa el JSONGenerator con el mapa y convierte a un cadena JSON
+	jsonGenerator.Initialize(map)
+	json = jsonGenerator.ToPrettyString(2)
+
+	' Inicializa y configura la solicitud HTTP POST
+	Dim peticion As HttpJob
+	peticion.Initialize("jobInsertar", Me)
+	peticion.PostString("https://sqliteazurepelicula.azurewebsites.net/api/Peliculas/",json)
+	peticion.GetRequest.SetContentType("application/json")
+    
+	' Espera la respuesta de la solicitud
+	Wait For (peticion) JobDone(respuesta As HttpJob)
+	If respuesta.Success Then
+		MsgboxAsync("Película insertada correctamente.", "Éxito")
+	Else
+		MsgboxAsync("No se pudo insertar la película. " & respuesta.ErrorMessage, "Error")
+	End If
+
+	' Libera los recursos del objeto HttpJob
+	peticion.Release
+End Sub
+
+
+
+
+
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub Button1_Click
+	xui.MsgboxAsync("Hello world!", "B4X")
+End Sub
+
